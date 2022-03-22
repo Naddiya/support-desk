@@ -5,17 +5,19 @@ import { useSelector, useDispatch } from 'react-redux';
 import { login, reset } from '../features/auth/authSlice';
 import { useNavigate } from 'react-router-dom';
 
+import Spinner from '../components/Spinner';
+
 const Login = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
-  
+
   const { email, password } = formData;
-  
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const { user, isLoading, isError, isSuccess, message } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -29,7 +31,7 @@ const Login = () => {
     }
 
     dispatch(reset());
-  }, [isError, isSuccess, user, message, navigate, dispatch, toast]);
+  }, [isError, isSuccess, user, message, navigate, dispatch]);
 
 
   const onChange = (e) => {
@@ -46,9 +48,12 @@ const Login = () => {
       email,
       password
     };
-
     dispatch(login(userData));
   };
+
+  if (isLoading) {
+    return <Spinner />
+  }
 
   return (
     <>

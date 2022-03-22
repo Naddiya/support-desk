@@ -29,6 +29,7 @@ const Header = () => {
                                 onClick={onLogout}
                             >
                                 <FaSignOutAlt />
+                                Logout
                             </button>
                         </li>
                     )
