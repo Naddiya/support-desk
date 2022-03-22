@@ -20,10 +20,10 @@ const Register = () => {
   };
 
   const onSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (password !== password2) {
-      toast.error('Passwords do not match')
+      toast.error('Passwords do not match');
     }
   };
 
@@ -49,7 +49,8 @@ const Register = () => {
               value={name}
               name='name'
               onChange={onChange}
-              placeHolder='Enter your name'
+              placeholder='Enter your name'
+              autoComplete='user-name'
             />
           </div>
           <div className="form-group">
@@ -60,7 +61,8 @@ const Register = () => {
               value={email}
               name='email'
               onChange={onChange}
-              placeHolder='Enter your Email'
+              placeholder='Enter your Email'
+              autoComplete='user-email'
             />
           </div>
           <div className="form-group">
@@ -71,7 +73,8 @@ const Register = () => {
               value={password}
               name='password'
               onChange={onChange}
-              placeHolder='Enter your Password'
+              placeholder='Enter your Password'
+              autoComplete='user-password'
               required
             />
           </div>
@@ -83,7 +86,8 @@ const Register = () => {
               value={password2}
               name='password2'
               onChange={onChange}
-              placeHolder='Confirm Password'
+              placeholder='Confirm Password'
+              autoComplete='user-confirm-password'
               required
             />
           </div>

@@ -44,7 +44,8 @@ const Login = () => {
               value={email}
               name='email'
               onChange={onChange}
-              placeHolder='Enter your Email'
+              placeholder='Enter your Email'
+              autoComplete='user-email'
             />
           </div>
           <div className="form-group">
@@ -55,7 +56,8 @@ const Login = () => {
               value={password}
               name='password'
               onChange={onChange}
-              placeHolder='Enter your Password'
+              placeholder='Enter your Password'
+              autoComplete='user-password'
               required
             />
           </div>
