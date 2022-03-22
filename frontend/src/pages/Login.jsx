@@ -33,7 +33,6 @@ const Login = () => {
     }
 
     dispatch(login(userData))
-
   };
 
   return (
