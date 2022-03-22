@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 
-// @desc Resgister a new user
+// @desc Register a new user
 // @route /api/users
 // @access Public
 const registerUser = asyncHandler(async (req, res) => {
@@ -59,7 +59,7 @@ const loginUser = asyncHandler(async (req, res) => {
     // Check user and password match
     if (user && (await bcrypt.compare(password, user.password))) {
         res.status(200).json({
-            _id: user.id,
+            _id: user._id,
             name: user.name,
             email: user.email,
             token: generateToken(user._id)
@@ -68,6 +68,19 @@ const loginUser = asyncHandler(async (req, res) => {
         res.status(401);
         throw new Error('Invalid credentials');
     }
+});
+
+// @desc Get current user
+// @route /api/users/me
+// @access Protected
+const getMe = asyncHandler(async (req, res) => {
+    const user = {
+        id: req.user._id,
+        name: req.user.name,
+        email: req.user.email
+    }
+    res.status(200).json(user);
+
 });
 
 // Generate Token
@@ -79,5 +92,6 @@ const generateToken = (id) => {
 
 module.exports = {
     registerUser,
-    loginUser
+    loginUser,
+    getMe
 };
