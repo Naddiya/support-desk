@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 
 const TicketItem = ({ ticket }) => {
 
-    console.log(ticket);
     return (
         <div className="ticket">
             <div>{new Date(ticket.createdAt).toLocaleString('en-us')}</div>

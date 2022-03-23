@@ -9,7 +9,7 @@ import Header from './components/Header';
 import PrivateRoute from './components/PrivateRoute';
 import NewTicket from './pages/NewTicket';
 import Tickets from './pages/Tickets';
-import Ticket from './pages/Tickets';
+import Ticket from './pages/Ticket';
 
 const App = () => {
   return (
