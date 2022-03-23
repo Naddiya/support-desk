@@ -2,15 +2,21 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/userModel');
 const Ticket = require('../models/ticketModel');
 
-
-
 // @Desc Get user Tickets
 // @route GET /api/tickets
 // @access Protected
 const getTickets = asyncHandler(async (req, res) => {
-   // const ticket = req.body;
+    // Get user using id and JWT
+    const user = await User.findById(req.user.id);
 
-    res.sendStatus(200).json({ message: 'getTickets' });
+    if (!user) {
+        res.sendStatus(401);
+        throw new Error('User not found');
+    }
+
+    const tickets = await Ticket.find({ user: req.user.id });
+
+    res.sendStatus(200).json(tickets);
 });
 
 
@@ -19,9 +25,29 @@ const getTickets = asyncHandler(async (req, res) => {
 // @route POST /api/tickets
 // @access Protected
 const createTicket = asyncHandler(async (req, res) => {
-    
+    const { product, description } = req.body;
 
-    res.sendStatus(201).json({message: 'createTicket'})
+    if (!product || !description) {
+        res.sendStatus(400)
+        throw new Error('Please add product and description')
+    }
+
+    // Get user using id and JWT
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+        res.sendStatus(401);
+        throw new Error('User not found');
+    }
+
+    const ticket = await Ticket.create({
+        product,
+        description,
+        user: req.user.id,
+        status: 'new'
+    })
+
+    res.sendStatus(201).json(ticket);
 });
 
 module.exports = {
