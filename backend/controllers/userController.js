@@ -11,7 +11,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
     // validation
     if (!name || !email || !password) {
-        res.sendStatus(400);
+        res.statusCode(400);
         throw new Error('Please include all fields');
     }
 
@@ -19,7 +19,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const userExists = await User.findOne({ email });
 
     if (userExists) {
-        res.sendStatus(400);
+        res.status(400);
         throw new Error('User already exists');
     }
 
@@ -35,14 +35,14 @@ const registerUser = asyncHandler(async (req, res) => {
     });
 
     if (user) {
-        res.sendStatus(201).json({
+        res.status(201).json({
             _id: user._id,
             name: user.name,
             email: user.email,
             token: generateToken(user._id)
         });
     } else {
-        res.sendStatus(400);
+        res.status(400);
         throw new Error('Invalid user data');
     }
 });
@@ -58,14 +58,14 @@ const loginUser = asyncHandler(async (req, res) => {
 
     // Check user and password match
     if (user && (await bcrypt.compare(password, user.password))) {
-        res.sendStatus(200).json({
+        res.status(200).json({
             _id: user._id,
             name: user.name,
             email: user.email,
             token: generateToken(user._id)
         });
     } else {
-        res.sendStatus(401);
+        res.status(401);
         throw new Error('Invalid credentials');
     }
 });
@@ -78,8 +78,8 @@ const getMe = asyncHandler(async (req, res) => {
         id: req.user._id,
         name: req.user.name,
         email: req.user.email
-    }
-    res.sendStatus(200).json(user);
+    };
+    res.status(200).json(user);
 
 });
 
